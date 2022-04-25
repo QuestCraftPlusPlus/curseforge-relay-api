@@ -1,2 +1,2 @@
-# curseforge-relay-api
-A "relay" API to call the Curseforge API for use with the mod manager
+# Curseforge Relay API
+This is an API to be used to hide the API key for curseforge.

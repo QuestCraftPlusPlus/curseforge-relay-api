@@ -1,9 +1,9 @@
-import json
-from fastapi import FastAPI
 # Import modules
 import os
+from sys import int_info
+from typing import Optional
+from fastapi import FastAPI
 from dotenv import load_dotenv
-from yaml import load
 import requests
 
 # Load env variables
@@ -18,35 +18,46 @@ headers = {
     'x-api-key': os.getenv('API_KEY')
 }
 url = 'https://api.curseforge.com'
-gameId = '432'
 
-# Create requests
-getGame = requests.get(f'{url}/v1/games/{gameId}', headers = headers)
-getModloader = requests.get(f'{url}/v1/minecraft/modloader', headers = headers)
-getMod = requests.get(f'{url}/v1/mods/308702', headers = headers)
-getVersions = requests.get(f'{url}/v1/games/{gameId}/versions', headers = headers)
-searchMods = requests.get(f'{url}/v1/mods/search', params= {
-    'gameId': gameId,
-    'classID': '6',
-}, headers = headers)
+# API listners
+@app.get('/')
+def read_root():
+    return {'Hello': 'Welcome to the Curseforge Relay API!'}
 
-# Create API listners
-@app.get('/getGame')
-def getGameAPI():
+@app.get('/getGame/{gameId}')
+def getGameAPI(gameId: int):
+    getGame = requests.get(f'{url}/v1/games/{gameId}', headers = headers)
     return getGame.json()
 
 @app.get('/getModloader')
 def getModloaderAPI():
+    getModloader = requests.get(f'{url}/v1/minecraft/modloader', headers = headers)
     return getModloader.json()
 
-@app.get('/getMod')
-def getModAPI():
+@app.get('/getMod/{modId}')
+def getModAPI(modId: int):
+    getMod = requests.get(f'{url}/v1/mods/{modId}', headers = headers)
     return getMod.json()
 
 @app.get('/getVersions')
-def getVersionsAPI():
+def getVersionsAPI(gameId: int):
+    getVersions = requests.get(f'{url}/v1/games/{gameId}/versions', headers = headers)
     return getVersions.json()
 
 @app.get('/searchMods')
-def searchModsAPI():
+def searchModsAPI(gameId: int, classId: int, categoryId: int, gameVersion: str, searchFilter: str, sortField: int, sortOrder: int, modLoaderType: int, gameVersionTypeId: int, slug: str, index: int, pageSize: int):
+    searchMods = requests.get(f'{url}/v1/mods/search', params= {
+    'gameId': gameId,
+    'classID': classId,
+    'categoryId': categoryId,
+    'gameVersion': gameVersion,
+    'searchFilter': searchFilter,
+    'sortField': sortField,
+    'sortOrder': sortOrder,
+    'modLoaderType': modLoaderType,
+    'gameVersionTypeId': gameVersionTypeId,
+    'slug': slug,
+    'index': index,
+    'pageSize': pageSize
+}, headers = headers)
     return searchMods.json()

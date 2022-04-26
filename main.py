@@ -1,6 +1,7 @@
 # Import modules
 import os
 from fastapi import FastAPI
+from typing import Optional
 from dotenv import load_dotenv
 import requests
 
@@ -37,13 +38,8 @@ def getModAPI(modId: int):
     getMod = requests.get(f'{url}/v1/mods/{modId}', headers = headers)
     return getMod.json()
 
-@app.get('/getVersions')
-def getVersionsAPI(gameId: int):
-    getVersions = requests.get(f'{url}/v1/games/{gameId}/versions', headers = headers)
-    return getVersions.json()
-
 @app.get('/searchMods')
-def searchModsAPI(gameId: int, classId: int, categoryId: int, gameVersion: str, searchFilter: str, sortField: int, sortOrder: int, modLoaderType: int, gameVersionTypeId: int, slug: str, index: int, pageSize: int):
+def searchModsAPI(gameId: Optional[int], classId: Optional[int], categoryId: Optional[int], gameVersion: Optional[str], searchFilter: Optional[str], sortField: Optional[int], sortOrder: Optional[int], modLoaderType: Optional[int], gameVersionTypeId: Optional[int], slug: Optional[str], index: Optional[int], pageSize: Optional[int]):
     searchMods = requests.get(f'{url}/v1/mods/search', params= {
     'gameId': gameId,
     'classID': classId,
@@ -59,3 +55,8 @@ def searchModsAPI(gameId: int, classId: int, categoryId: int, gameVersion: str, 
     'pageSize': pageSize
 }, headers = headers)
     return searchMods.json()
+
+@app.get('/getModDescription/{modId}')
+def getModDescriptionAPI(modId: int):
+    getModDescription = requests.get(f'{url}/v1/mods/{modId}/description', headers = headers)
+    return getModDescription.json()

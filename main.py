@@ -1,7 +1,5 @@
 # Import modules
 import os
-from sys import int_info
-from typing import Optional
 from fastapi import FastAPI
 from dotenv import load_dotenv
 import requests
@@ -15,7 +13,7 @@ app = FastAPI()
 # Declare global variables
 headers = {
     'Accept': 'application/json',
-    'x-api-key': os.getenv('API_KEY')
+    'x-api-key': os.environ['API_KEY']
 }
 url = 'https://api.curseforge.com'
 

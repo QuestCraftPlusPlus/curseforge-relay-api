@@ -38,7 +38,7 @@ def getModAPI(modId: int):
     return getMod.json()
 
 @app.get('/searchMods')
-def searchModsAPI(gameId = 432, classId = 6, gameVersion = None, searchFilter = None, sortField = None, sortOrder = None, modLoaderType = None, gameVersionTypeId = None, slug = None, index = None, pageSize = None):
+def searchModsAPI(gameId = 432, classId = None, gameVersion = None, searchFilter = None, sortField = None, sortOrder = None, modLoaderType = 4, gameVersionTypeId = None, slug = None, index = None, pageSize = None):
     searchMods = requests.get(f'{url}/v1/mods/search', params= {
     'gameId': gameId,
     'classID': classId,

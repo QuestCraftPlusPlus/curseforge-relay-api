@@ -1,7 +1,6 @@
 # Import modules
 import os
 from fastapi import FastAPI
-from typing import Optional
 from dotenv import load_dotenv
 import requests
 
@@ -39,11 +38,10 @@ def getModAPI(modId: int):
     return getMod.json()
 
 @app.get('/searchMods')
-def searchModsAPI(categoryId: Optional[int], gameVersion: Optional[str], searchFilter: Optional[str], sortField: Optional[int], sortOrder: Optional[int], modLoaderType: Optional[int], gameVersionTypeId: Optional[int], slug: Optional[str], index: Optional[int], pageSize: Optional[int], gameId = 432, classId = 6):
+def searchModsAPI(gameId = 432, classId = 6, gameVersion = None, searchFilter = None, sortField = None, sortOrder = None, modLoaderType = None, gameVersionTypeId = None, slug = None, index = None, pageSize = None):
     searchMods = requests.get(f'{url}/v1/mods/search', params= {
     'gameId': gameId,
     'classID': classId,
-    'categoryId': categoryId,
     'gameVersion': gameVersion,
     'searchFilter': searchFilter,
     'sortField': sortField,

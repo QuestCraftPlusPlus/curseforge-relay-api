@@ -1,5 +1,7 @@
 # Import modules
 import os
+from sys import int_info
+from typing import Optional
 from fastapi import FastAPI
 from dotenv import load_dotenv
 import requests

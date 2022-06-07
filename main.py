@@ -61,17 +61,7 @@ def getModDescriptionAPI(modId: int):
     getModDescription = requests.get(f'{url}/v1/mods/{modId}/description', headers = headers)
     return getModDescription.json()
 
-@app.get('/getModDownloadURL/{modId}')
-def getModDownloadURLAPI(modId = 617748, gameVersion = None, modLoaderType = None, gameVersionTypeId = None, index = None, pageSize = None):
-    getModFiles = requests.get(f'{url}/v1/mods/{modId}/files', headers = headers, params= {
-        'modId': modId,
-        'gameVersion': gameVersion,
-        'modLoaderType': modLoaderType,
-        'gameVersionTypeId': gameVersionTypeId,
-        'index': index,
-        'pageSize': pageSize
-    })
-    modFile = getModFiles.json()
-    fileId = modFile['data'][0]['id']
-    getModFileURL = requests.get(f'{url}/v1/mods/{modId}/files/{fileId}/download-url', headers = headers)
-    return getModFileURL
+@app.get('/getModFiles/{modId}')
+def getModFilesAPI(modId: int):
+    getModFiles = requests.get(f'{url}/v1/mods/{modId}/files', headers = headers)
+    return getModFiles.json()

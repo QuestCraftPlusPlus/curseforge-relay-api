@@ -39,7 +39,7 @@ def getModAPI(modId: int):
     getMod = requests.get(f'{url}/v1/mods/{modId}', headers = headers)
     return getMod.json()
 
-@app.get('/getVersions')
+@app.get('/getVersions/{gameId}')
 def getVersionsAPI(gameId: int):
     getVersions = requests.get(f'{url}/v1/games/{gameId}/versions', headers = headers)
     return getVersions.json()
@@ -62,7 +62,7 @@ def searchModsAPI(gameId: int, classId: int, categoryId: int, gameVersion: str, 
 }, headers = headers)
     return searchMods.json()
 
-@app.get('/getModDownloadURL')
+@app.get('/getModDownloadURL/{modId}/{fileId}')
 def getModDownloadURLAPI(modId: int, fileId: int):
     getModDownloadURL = requests.get(f'{url}/v1/mods/{modId}/files/{fileId}/download-url', headers = headers)
     return getModDownloadURL.json()

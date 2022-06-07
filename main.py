@@ -61,7 +61,7 @@ def getModDescriptionAPI(modId: int):
     getModDescription = requests.get(f'{url}/v1/mods/{modId}/description', headers = headers)
     return getModDescription.json()
 
-@app.get('/getModFiles/{modId}')
-def getModFilesAPI(modId: int):
-    getModFiles = requests.get(f'{url}/v1/mods/{modId}/files', headers = headers)
-    return getModFiles.json()
+@app.get('/getModDownloadURL/{modId}/{fileId}')
+def getModDownloadURLAPI(modId: int, fileId: int):
+    getModDownloadURL = requests.get(f'{url}/v1/mods/{modId}/files/{fileId}/download-url', headers = headers)
+    return getModDownloadURL.json()

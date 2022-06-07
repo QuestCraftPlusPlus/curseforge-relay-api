@@ -61,3 +61,8 @@ def searchModsAPI(gameId: int, classId: int, categoryId: int, gameVersion: str, 
     'pageSize': pageSize
 }, headers = headers)
     return searchMods.json()
+
+@app.get('/getModDownloadURL')
+def getModDownloadURLAPI(modId: int, fileId: int):
+    getModDownloadURL = requests.get(f'{url}/v1/mods/{modId}/files/{fileId}/download-url', headers = headers)
+    return getModDownloadURL.json()

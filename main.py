@@ -39,6 +39,11 @@ def getModAPI(modId: int):
     getMod = requests.get(f'{url}/v1/mods/{modId}', headers = headers)
     return getMod.json()
 
+@app.get('/getVersions/{gameId}')
+def getVersionsAPI(gameId: int):
+    getVersions = requests.get(f'{url}/v1/games/{gameId}/versions', headers = headers)
+    return getVersions.json()
+
 @app.get('/searchMods')
 def searchModsAPI(gameId = 432, classId = None, gameVersion = '1.18.2', searchFilter = None, sortField = None, sortOrder = None, modLoaderType = 4, gameVersionTypeId = None, slug = None, index = None, pageSize = None):
     searchMods = requests.get(f'{url}/v1/mods/search', params= {
@@ -55,11 +60,6 @@ def searchModsAPI(gameId = 432, classId = None, gameVersion = '1.18.2', searchFi
     'pageSize': pageSize
 }, headers = headers)
     return searchMods.json()
-
-@app.get('/getModDescription/{modId}')
-def getModDescriptionAPI(modId: int):
-    getModDescription = requests.get(f'{url}/v1/mods/{modId}/description', headers = headers)
-    return getModDescription.json()
 
 @app.get('/getModDownloadURL/{modId}/{fileId}')
 def getModDownloadURLAPI(modId: int, fileId: int):
